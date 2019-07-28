@@ -13,19 +13,25 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <link rel='stylesheet' type='text/css' media='screen' href='assets/css/stylesheet.css'>
 
 </head>
-<h1>Choo Choo Time</h1>
+
+
 <body>
+    <h1>Choo Choo Time</h1>
   <div class="container">
+      <div class="row">
 
 
 
-    <div class="row">
-      <h3>Current Train Schedule</h3>
+
       <table class="table table-dark">
+          <div class="row">
+              <h3>Current Train Schedule</h3>
+            </div>
         <thead>
           <tr>
             <th scope="col" id="addTrainname">Train Name</th>
@@ -35,56 +41,41 @@
             <th scope="col" id="addMinAway">Minutes Away</th>
           </tr>
         </thead>
-        <tbody>
-          <tr id=>
-            <td>Trenton Express</td>
-            <td>Trenton</td>
-            <td>25</td>
-            <td>05:35pm</td>
-            <td>10</td>
+        <tbody id="moreTrains">
+          <tr>
           </tr>
           <tr>
-            <td>Oregan Trail</td>
-            <td>Salem, Oregan</td>
-            <td>3600</td>
-            <td>01:39pm</td>
-            <td>1154</td>
           </tr>
           <tr>
-            <td>Boston Bus</td>
-            <td>Boston</td>
-            <td>65</td>
-            <td>05:50pm</td>
-            <td>25</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="row">
-        <h3>Add to Train Schedule</h3>
-      </div>
+      <h3>Add to Train Schedule</h3>
+    </div>
     <div class="row">
-        <form>
-            <div class="form-group">
-              <label for="trainname">Train Name</label>
-              <input class="form-control" type="text" placeholder="" id="trainnameInput">
-            </div>
-            <div class="form-group">
-              <label for="Destination">Destination</label>
-              <input class="form-control" type="text" placeholder="" id="destinationInput">
-            </div>
-            <div class="form-group">
-                <label for="trainTime">First Train Time (HH: mm - military time)</label>
-                <input class="form-control" type="text" placeholder="" id="traintimeInput">
-              </div>
-            <div class="form-group">
-                <label for="freqeuncy">Frequency(min)</label>
-                <input class="form-control" type="text" placeholder="" id="freqInput">
-              </div>
+      <form>
+        <div class="form-group">
+          <label for="trainname">Train Name</label>
+          <input class="form-control" type="text" placeholder="" id="trainnameInput">
+        </div>
+        <div class="form-group">
+          <label for="Destination">Destination</label>
+          <input class="form-control" type="text" placeholder="" id="destinationInput">
+        </div>
+        <div class="form-group">
+          <label for="trainTime">First Train Time (HH: mm - military time)</label>
+          <input class="form-control" type="text" placeholder="" id="traintimeInput">
+        </div>
+        <div class="form-group">
+          <label for="freqeuncy">Frequency(min)</label>
+          <input class="form-control" type="text" placeholder="" id="freqInput">
+        </div>
 
-            <button type="submit" class="btn btn-dark" id="submitclick">Submit</button>
-          </form>
+        <button type="submit" class="btn btn-dark" id="submitclick">Submit</button>
+      </form>
 
     </div>
 

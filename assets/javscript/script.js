@@ -6,48 +6,70 @@ var config = {
     storageBucket: "choo-choo-scheduler.appspot.com",
     messagingSenderId: "742250943148",
     projectID: "choo-choo-scheduler"
-  };
+};
 
-  firebase.initializeApp(config);
+firebase.initializeApp(config);
 
-  var database = firebase.database();
+var database = firebase.database();
 
 //when the Button is Hit the Train is Added
 //takes in input
-$("#submitclick").click(function () {
-var trainName = $("#trainnameInput").val().trim();
-console.log(trainName);
-var destination = $("#destinationInput").val().trim();
-console.log(destination);
-var trainTime = $("#traintimeInput").val().trim();
-console.log(trainName);
-var Frequency = $("#freqInput").val().trim();
-console.log(Frequency);
+$("#submitclick").on("click", function (event) {
+    event.preventDefault();
 
-// Uploads train data to the database
-database.ref().push({
-    TrainName: trainName,
-    Destination: destination,
-    FirstTrainTime: trainTime,
-    Frequency: Frequency
-  });
+    var trainName = $("#trainnameInput").val().trim();
+    var destination = $("#destinationInput").val().trim();
+    var trainTime = $("#traintimeInput").val().trim();
+    var Frequency = $("#freqInput").val().trim();
 
-// Clears all of the text-boxes
-function clearData () {
-$("#trainnameInput, #destinationInput, #traintimeInput, #freqInput").val("");
+
+    // Uploads train data to the database
+    database.ref().push({
+        TrainName: trainName,
+        Destination: destination,
+        FirstTrainTime: trainTime,
+        Frequency: Frequency
+    });
+});
+
+database.ref().on("child_added", function (childSnapshot) {
+
+    //pulling data back from firebase and placing into variables
+    var fireTrain = childSnapshot.val().TrainName;
+    var fireDestination = childSnapshot.val().Destination;
+    var fireFirst = childSnapshot.val().FirstTrainTime;
+    var fireFrequency = childSnapshot.val().Frequency;
+
+    //Time
+    var startTimeConverted = moment(fireFirst, "hh:mm").subtract(1, "years");
+
+    //Difference between the times
+    var differenceTime = moment().diff(moment(startTimeConverted), "minutes");
+
+    //remainder
+    var remainder = differenceTime % fireFrequency;
+
+    //minutes until train
+    var minutesUntillTrain = fireFrequency - remainder;
+
+    //Next Train
+    var nextTrain = moment().add(minutesUntillTrain, "minutes");
+
+    var tillTrain = moment(nextTrain).format("HH:mm");
+
+    //Add each train's data into the table
+    $("#moreTrains").append(
+        '<tr><td>' + fireTrain +
+        '</td><td>' + fireDestination +
+        '</td><td>' + fireFrequency +
+        '</td><td>' + tillTrain +
+        '</td><td>' + remainder + ' </td></tr>');
+
+    // Clears all of the text-boxes
+    $("#trainnameInput").val("");
+    $("#destinationInput").val("");
+    $("traintimeInput").val("");
+    $("#freqInput").val("");
+
     return false;
-}
-clearData();
-
-
-//Current Time
-
-//Difference between the times
-
-//Time apart (remainder)
-
-//Minute Until Train
-
-//Next Train
-
-//Add each train's data into the table
+});

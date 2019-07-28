@@ -1,4 +1,9 @@
 h1 {
     text-align: center;
-    margin: 20px;
+    padding: 20px;
+    border-bottom: 2px solid;
+}
+
+h3 {
+    text-align: center;
 }
